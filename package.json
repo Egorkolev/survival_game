@@ -1,0 +1,22 @@
+{
+  "name": "vampire-survival",
+  "version": "1.0.0",
+  "description": "Vampire Survivors Style Survival Game Using PixiJS",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/main.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["pixijs", "typescript", "game", "vampire-survivors"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "pixi.js": "8.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "typescript": "^5.1.6"
+  }
+}
+
