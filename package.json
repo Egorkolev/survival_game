@@ -4,9 +4,10 @@
   "description": "Vampire Survivors Style Survival Game Using PixiJS",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
-    "start": "tsc && node dist/main.js",
-    "dev": "tsc --watch"
+    "build": "tsc && cp index.html dist/ && cp styles.css dist/",
+    "start": "npm run build && node dist/main.js",
+    "dev": "tsc --watch",
+    "serve": "npm run build && open dist/index.html"
   },
   "keywords": ["pixijs", "typescript", "game", "vampire-survivors"],
   "author": "",
