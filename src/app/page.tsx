@@ -2,8 +2,8 @@ import {GameComponent} from "@/game/main";
 
 export default function Home() {
   return (
-    <div className="">
+    <main className="min-h-screen">
       <GameComponent/>
-    </div>
+    </main>
   );
 }

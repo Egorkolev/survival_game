@@ -8,8 +8,10 @@ export function GameComponent() {
     useGame(canvasRef);
 
     return (
-        <div className="">
-            <canvas id="game-container" ref={canvasRef} className='w-full h-full' />
+        <div className="w-full h-screen flex items-center justify-center bg-black">
+            <div className="border-2 border-gray-600 rounded-lg overflow-hidden">
+                <canvas id="game-container" ref={canvasRef} className='block' />
+            </div>
         </div>
     );
 }

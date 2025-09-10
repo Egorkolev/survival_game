@@ -19,19 +19,27 @@ export class Game {
             return;
         }
 
+        if (!this.canvas || !this.canvas.parentElement) {
+            console.log("Error: Canvas or parent element not found!");
+            return;
+        }
+
         const app = new Application();
 
         await app.init({
             background: '#1099bb',
             width: 800,
-            height: 600,
-            resizeTo: window
+            height: 600
         });
 
-        if (this.canvas) {
-            console.log("Appending canvas to game container...");
-           this.canvas.appendChild(app.canvas);
-        }
+        console.log("Replacing canvas with PixiJS canvas...");
+        // Заменяем React canvas на PixiJS canvas
+        this.canvas.parentElement.replaceChild(app.canvas, this.canvas);
+        
+        // Применяем стили для корректного отображения
+        app.canvas.style.width = '100%';
+        app.canvas.style.height = '100%';
+        app.canvas.style.display = 'block';
 
     }
 }

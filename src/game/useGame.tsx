@@ -7,7 +7,8 @@ export const useGame = (canvasRef: RefObject<HTMLCanvasElement | null>) => {
     useEffect(() => {
         if (!canvasRef.current) return
 
-        const game = new Game(canvasRef);
+        const gameInstance = new Game(canvasRef);
+        setGame(gameInstance);
 
         const resizeObserver = new ResizeObserver(() => {
             // todo: game.resize() or something
@@ -20,5 +21,5 @@ export const useGame = (canvasRef: RefObject<HTMLCanvasElement | null>) => {
         return () => {
             resizeObserver.disconnect()
         }
-    })
+    }, [canvasRef])
 }
