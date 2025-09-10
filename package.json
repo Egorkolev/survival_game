@@ -1,23 +1,27 @@
 {
-  "name": "vampire-survival",
-  "version": "1.0.0",
-  "description": "Vampire Survivors Style Survival Game Using PixiJS",
-  "main": "dist/main.js",
+  "name": "vampire_survival_next",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "build": "tsc && cp index.html dist/ && cp styles.css dist/",
-    "start": "npm run build && node dist/main.js",
-    "dev": "tsc --watch",
-    "serve": "npm run build && open dist/index.html"
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "biome check",
+    "format": "biome format --write"
   },
-  "keywords": ["pixijs", "typescript", "game", "vampire-survivors"],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.5.2",
     "pixi.js": "8.13.1"
   },
   "devDependencies": {
-    "@types/node": "^20.5.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "@biomejs/biome": "2.2.0"
   }
 }
-
