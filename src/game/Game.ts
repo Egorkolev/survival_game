@@ -1,5 +1,11 @@
+import {Legor} from "@/game/heroes/Legor";
 import { Application} from "pixi.js";
+import { Container } from "pixi.js";
 import { RefObject } from "react";
+
+export const WIDTH = 800;
+export const HEIGHT = 600;
+
 
 export class Game {
 
@@ -25,21 +31,29 @@ export class Game {
         }
 
         const app = new Application();
+        const containerHero = new Container();
 
         await app.init({
-            background: '#1099bb',
-            width: 800,
-            height: 600
+            background: '#021f4b',
+            width: WIDTH,
+            height: HEIGHT
         });
+        // @ts-ignore
+        globalThis.__PIXI_APP__ = app;
 
         console.log("Replacing canvas with PixiJS canvas...");
-        // Заменяем React canvas на PixiJS canvas
+        // replace React canvas to PixiJS canvas
         this.canvas.parentElement.replaceChild(app.canvas, this.canvas);
-        
-        // Применяем стили для корректного отображения
+
         app.canvas.style.width = '100%';
         app.canvas.style.height = '100%';
         app.canvas.style.display = 'block';
 
+        app.stage.addChild(containerHero);
+        const legor = new Legor(containerHero);
+
+        app.ticker.add((time: any) => {
+            legor.moveHandle()
+        })
     }
 }
