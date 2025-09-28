@@ -1,3 +1,5 @@
+import {CollisionManager} from "@/game/managers/CollisionManager";
+import {Enemy} from "@/game/enemies/Enemy";
 import {Legor} from "@/game/heroes/Legor";
 import { Application} from "pixi.js";
 import { Container } from "pixi.js";
@@ -32,6 +34,8 @@ export class Game {
 
         const app = new Application();
         const containerHero = new Container();
+        const containerEnemies = new Container();
+        const collisionManager = new CollisionManager(containerEnemies);
 
         await app.init({
             background: '#021f4b',
@@ -51,9 +55,21 @@ export class Game {
 
         app.stage.addChild(containerHero);
         const legor = new Legor(containerHero);
+        const enemy: Enemy[] = [];
+
+        app.stage.addChild(containerEnemies);
 
         app.ticker.add((time: any) => {
-            legor.moveHandle()
+            legor.moveHandle();
+            if (enemy.length < 3) {
+                enemy.push(new Enemy(containerEnemies));
+            }
+
+            enemy.forEach((enemy: Enemy) =>
+                enemy.enemyMoveTo(legor.getPosition())
+            );
+
+            collisionManager.collisionDetect(legor, enemy);
         })
     }
 }

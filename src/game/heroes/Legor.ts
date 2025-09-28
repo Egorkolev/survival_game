@@ -2,10 +2,9 @@ import {Container, Graphics} from "pixi.js";
 import {HEIGHT, WIDTH} from "@/game/Game";
 
 export class Legor {
-    private containerHero: Container;
+    private containerHeroies: Container;
+    private heroContainer: Container = new Container();
     private heroColor: string = "0x264d3d";
-    private width: number = 50;
-    private height: number = 50;
     private moveSpeed: number = 1;
     private moveUp: boolean = false;
     private moveDown: boolean = false;
@@ -13,21 +12,23 @@ export class Legor {
     private moveLeft: boolean = false;
 
     constructor(containerHero: Container) {
-        this.containerHero = containerHero;
+        this.containerHeroies = containerHero;
         this.heroView();
         this.keysHandle();
     }
 
     private heroView (): void {
+        const width: number = 50;
+        const height: number = 50;
         const graphics = new Graphics();
-        const positionX = WIDTH / 2 - this.width / 2;
-        const positionY = HEIGHT / 2 - this.height / 2;
 
-        graphics.rect(positionX, positionY, this.width, this.height)
+        graphics.rect(this.heroContainer.x - width / 2, this.heroContainer.y - height / 2, width, height)
             .fill({color: this.heroColor});
 
-        this.containerHero.addChild(graphics);
-        console.log(this.containerHero.width, this.containerHero.height);
+        this.heroContainer.x = WIDTH / 2;
+        this.heroContainer.y = HEIGHT / 2;
+        this.heroContainer.addChild(graphics);
+        this.containerHeroies.addChild(this.heroContainer);
     }
 
     private keysHandle (): void {
@@ -57,16 +58,23 @@ export class Legor {
     }
     public moveHandle (): void {
         if (this.moveUp) {
-            this.containerHero.y -= this.moveSpeed;
+            this.heroContainer.y -= this.moveSpeed;
         }
         if (this.moveDown) {
-            this.containerHero.y += this.moveSpeed;
+            this.heroContainer.y += this.moveSpeed;
         }
         if (this.moveRight) {
-            this.containerHero.x += this.moveSpeed;
+            this.heroContainer.x += this.moveSpeed;
         }
         if(this.moveLeft) {
-            this.containerHero.x -= this.moveSpeed;
+            this.heroContainer.x -= this.moveSpeed;
+        }
+    }
+
+    public getPosition () {
+        return {
+            x: Number(this.heroContainer.x.toFixed()),
+            y: Number(this.heroContainer.y.toFixed())
         }
     }
 }
