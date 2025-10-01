@@ -1,5 +1,7 @@
+import {IWeapons} from "@/game/weapons/types";
 import {Container, Graphics} from "pixi.js";
 import {HEIGHT, WIDTH} from "@/game/Game";
+import {Laser} from "@/game/weapons/laser";
 
 export class Legor {
     private containerHeroies: Container;
@@ -10,11 +12,15 @@ export class Legor {
     private moveDown: boolean = false;
     private moveRight: boolean = false;
     private moveLeft: boolean = false;
+    private weapons: IWeapons[] = [
+        new Laser()
+    ];
 
     constructor(containerHero: Container) {
         this.containerHeroies = containerHero;
         this.heroView();
         this.keysHandle();
+        this.initWeapons();
     }
 
     private heroView (): void {
@@ -56,6 +62,7 @@ export class Legor {
             }
         })
     }
+
     public moveHandle (): void {
         if (this.moveUp) {
             this.heroContainer.y -= this.moveSpeed;
@@ -75,6 +82,18 @@ export class Legor {
         return {
             x: Number(this.heroContainer.x.toFixed()),
             y: Number(this.heroContainer.y.toFixed())
+        }
+    }
+
+    private initWeapons (): void {
+        for(let i = 0; i < this.weapons.length; i++) {
+            this.heroContainer.addChild(this.weapons[i].getContainer());
+        }
+    }
+
+    public attack (): void {
+        for(let i = 0; i < this.weapons.length; i++) {
+            this.weapons[i].attack();
         }
     }
 }

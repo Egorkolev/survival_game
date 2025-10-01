@@ -32,10 +32,12 @@ export class Game {
             return;
         }
 
+        const enemy: Enemy[] = [];
         const app = new Application();
         const containerHero = new Container();
         const containerEnemies = new Container();
-        const collisionManager = new CollisionManager(containerEnemies);
+        const legor = new Legor(containerHero);
+        const collisionManager = new CollisionManager(legor, enemy);
 
         await app.init({
             background: '#021f4b',
@@ -53,23 +55,22 @@ export class Game {
         app.canvas.style.height = '100%';
         app.canvas.style.display = 'block';
 
-        app.stage.addChild(containerHero);
-        const legor = new Legor(containerHero);
-        const enemy: Enemy[] = [];
-
         app.stage.addChild(containerEnemies);
+        app.stage.addChild(containerHero);
 
         app.ticker.add((time: any) => {
             legor.moveHandle();
             if (enemy.length < 3) {
                 enemy.push(new Enemy(containerEnemies));
+                console.log('Enemy created. Total enemies:', enemy.length);
             }
 
             enemy.forEach((enemy: Enemy) =>
                 enemy.enemyMoveTo(legor.getPosition())
             );
 
-            collisionManager.collisionDetect(legor, enemy);
+            collisionManager.collisionDetect();
+            legor.attack();
         })
     }
 }

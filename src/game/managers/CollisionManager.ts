@@ -1,15 +1,19 @@
 import {Enemy} from "@/game/enemies/Enemy";
 import {Legor} from "@/game/heroes/Legor";
-import {Container} from "pixi.js";
 
 export class CollisionManager {
 
-    constructor(private containerEnemies: Container<any>) {}
+    private enemies: Enemy[];
+    private legor: Legor;
+    constructor(legor: Legor, enemies:Enemy[]) {
+        this.enemies = enemies;
+        this.legor = legor;
+    }
 
-    public collisionDetect (legor: Legor, enemy: Enemy[]): void {
-        for (let i = 0; i < enemy.length; i++) {
-            const heroPos = legor.getPosition();
-            const enemyPos = enemy[i].getPosition();
+    public collisionDetect (): void {
+        for (let i = 0; i < this.enemies.length; i++) {
+            const heroPos = this.legor.getPosition();
+            const enemyPos = this.enemies[i].getPosition();
 
             const heroLeft = heroPos.x - 25;
             const heroRight = heroPos.x + 25;
@@ -27,8 +31,8 @@ export class CollisionManager {
                 heroBottom > enemyTop;
 
             if (isCollision) {
-                this.containerEnemies.removeChild(enemy[i].getEnemyContainer());
-                enemy.splice(i, 1);
+                this.enemies[i].destroy();
+                this.enemies.splice(i, 1);
             }
         }
     }

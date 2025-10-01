@@ -5,7 +5,7 @@ export class Enemy {
     private containerEnemies: Container;
     private enemyContainer: Container = new Container();
     private enemyColor: string = "#F54927";
-    private moveSpeed: number = 0.7;
+    private moveSpeed: number = 0.6;
 
     constructor(
         containerEnemy: Container,
@@ -51,5 +51,10 @@ export class Enemy {
 
     public getEnemyContainer(): Container {
         return this.enemyContainer;
+    }
+
+    public destroy(): void {
+        this.containerEnemies.removeChild(this.enemyContainer);
+        this.enemyContainer.destroy();
     }
 }
