@@ -1,3 +1,4 @@
+import {WeaponCollisionManager} from "@/game/managers/weaponCollisionManager";
 import {CollisionManager} from "@/game/managers/CollisionManager";
 import {Enemy} from "@/game/enemies/Enemy";
 import {Legor} from "@/game/heroes/Legor";
@@ -38,6 +39,7 @@ export class Game {
         const containerEnemies = new Container();
         const legor = new Legor(containerHero);
         const collisionManager = new CollisionManager(legor, enemy);
+        const weaponCollisionManager = new WeaponCollisionManager(legor, enemy);
 
         await app.init({
             background: '#021f4b',
@@ -70,6 +72,7 @@ export class Game {
             );
 
             collisionManager.collisionDetect();
+            weaponCollisionManager.collisionDetect();
             legor.attack();
         })
     }

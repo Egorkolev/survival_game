@@ -30,10 +30,10 @@ export class CollisionManager {
                 heroTop < enemyBottom &&
                 heroBottom > enemyTop;
 
-            if (isCollision) {
-                this.enemies[i].destroy();
-                this.enemies.splice(i, 1);
-            }
+            // if (isCollision) {
+            //     this.enemies[i].destroy();
+            //     this.enemies.splice(i, 1);
+            // }
         }
     }
 }

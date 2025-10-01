@@ -96,4 +96,8 @@ export class Legor {
             this.weapons[i].attack();
         }
     }
+
+    public getWeapons(): IWeapons[] {
+        return this.weapons;
+    }
 }
